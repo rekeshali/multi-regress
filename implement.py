@@ -24,20 +24,18 @@ def build_R(db, key, goodidx):
     R.resize(rows,1)
     return R
 
-# easy multiply macro
-def m(A,B):
-    return np.multiply(A,B)
-
+def linear(dbtrain, key, Xidx, Ridx):
 # build arrays from dict using only relevant keys
 # Xidx = range(2,5)
-Xidx = [3,4,5,6]
-Xtrain = build_X(dbtrain, key, Xidx)
-Xtest  = build_X(dbtest,  key, Xidx)
+#     Xidx = [3,4,5,6]
+    Xtrain = build_X(dbtrain, key, Xidx)
+#     Xtest  = build_X(dbtest,  key, Xidx)
 
 # build solutions
-Ridx = 0
-Rtrain = build_R(dbtrain, key, Ridx)
-Rtest  = build_R(dbtest,  key, Ridx)
+#     Ridx = 0
+    Rtrain = build_R(dbtrain, key, Ridx)
+#     Rtest  = build_R(dbtest,  key, Ridx)
 
 # solve linear system
-W = Xtrain.I*Rtrain
+    W = Xtrain.I*Rtrain
+    return W, Xtrain
