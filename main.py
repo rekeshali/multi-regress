@@ -3,10 +3,11 @@ import numpy as np
 import matplotlib.pyplot as mp
 
 from explore import car, key
-from prepare import db, dbst, keyst, dbtest, dbtrain, rand_idx, stat
+from prepare import prepare, randsplit, stat
 from implement import build_X, build_R, linear_train, solve
-from reduct import scatter 
 from tools import autotrain, autotest
+# from reduct import scatter 
+
 
 def auto(xidx, ridx):
 # automatically trains and tests all possible combinations of data
