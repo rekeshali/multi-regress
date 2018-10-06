@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 import numpy as np
 from explore import key, db, bad_entry
 

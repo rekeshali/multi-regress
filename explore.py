@@ -1,6 +1,14 @@
 #!/usr/bin/ python
 
-# open, get, close data files
+# macro to check for data format
+def is_num(string): # returns true if number, false otherwise
+    try:
+        float(string)
+        return True
+    except ValueError:
+        return False# open, get, close data files
+
+# begin data exploration
 datafile = open("data/auto-mpg.data", "r") # opens for reading
 namefile = open("data/auto-mpg.names", "r")
 
@@ -20,14 +28,6 @@ for line in card:
     key.append(line.split(':')[0].split(' ',5)[-1]) # get dict keys
     db[key[i]] = [] # initiate key:value pairs in dict
     i = i + 1
-
-# macro to check for data format
-def is_num(string): # returns true if number, false otherwise
-    try:
-        float(string)
-        return True
-    except ValueError:
-        return False
 
 # add values to dict
 bad_entry = {}

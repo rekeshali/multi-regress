@@ -1,11 +1,8 @@
 #!/usr/bin/python
-
 import numpy as np
-from scipy import linalg as la, sparse as sp
-from prepare import key, keyst, dbst, dbtrain, dbtest
 
-# converts dict into array
 def build_X(db, key, goodidx):
+# extracts features of goodidx within key to train model
     rows = len(db[key[0]])
     cols = len(goodidx) + 1
     X = list(np.ones(rows))
@@ -16,26 +13,28 @@ def build_X(db, key, goodidx):
     X = X.T
     return X
 
-# extracts output array
-def build_R(db, key, goodidx):
-    rows = len(db[key[0]])
-    R = db[key[goodidx]]
+def build_R(db, ukey):
+# extracts output array 
+    rows = len(db[ukey])
+    R = db[ukey]
     R = np.matrix(R)
     R.resize(rows,1)
     return R
 
-def linear(dbtrain, key, Xidx, Ridx):
+# trains a linear regression model
+def linear_train(dbtrain, key, Xidx, ukey):
 # build arrays from dict using only relevant keys
-# Xidx = range(2,5)
-#     Xidx = [3,4,5,6]
     Xtrain = build_X(dbtrain, key, Xidx)
-#     Xtest  = build_X(dbtest,  key, Xidx)
-
 # build solutions
-#     Ridx = 0
-    Rtrain = build_R(dbtrain, key, Ridx)
-#     Rtest  = build_R(dbtest,  key, Ridx)
-
+    Rtrain = build_R(dbtrain, ukey)
 # solve linear system
     W = Xtrain.I*Rtrain
     return W, Xtrain
+
+# solves test array using weights from training
+def solve(dbtest, key, Xidx, W):
+# build arrays from dict using only relevant keys
+    Xtest  = build_X(dbtest,  key, Xidx)
+# solve linear system
+    R = Xtest*W
+    return R, Xtest
