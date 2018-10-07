@@ -13,7 +13,7 @@ from output import print_results
 xinp = range(1,8)
 unk  = 0
 topN = 20
-Iters = 10000
+Iters = 1
 for j in range(10):
     errmean  = 0
     keycount = np.zeros(len(key))
@@ -27,4 +27,4 @@ for j in range(10):
     errmean  = errmean/Iters
     keycount = keycount/(topN*Iters)
 
-    print_results(Iters, errmean, keycount)
+#     print_results(Iters, errmean, keycount)
