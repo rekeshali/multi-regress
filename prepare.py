@@ -24,7 +24,7 @@ def numvals(db, tooth):
         numvals = numvals + (num > -1)
     return numvals
 
-def prepare():
+def prepare(norm):
 # imputate databse and do some stats
     from explore import db, bad_entry
     lbad = {}
@@ -56,6 +56,12 @@ def prepare():
     for badkey in bad_entry:
         for badidx in range(-1, -lbad[badkey] - 1, -1):
             db[badkey][badidx] = dbst[badkey]['mean'][0]
+
+    if norm == 1:
+        inst = len(db['mpg'])
+        for tooth in key[:-1]:
+            for i in range(inst):
+                db[tooth][i] = (db[tooth][i] - dbst[tooth]['mean'][0])/dbst[tooth]['std'][0]
 
     return db, dbst, keyst
 

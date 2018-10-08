@@ -4,27 +4,31 @@ import matplotlib.pyplot as mp
 
 from explore import car, key
 from prepare import prepare, randsplit, stat
-# from implement import build_X, build_R, linear_train, solve # for debugging
-from tools import auto, error, topcombo, counthits
-from output import print_results
-# from reduct import scatter 
+from tools import auto, error, topcombo, counthits, initdball, bestcombo, findball
+from output import print_results, print_max
 
-[db, dbst, keyst] = prepare()
-xinp = range(1,8)
-unk  = 0
-topN = 20
-Iters = 1
-for j in range(10):
+[db, dbst, keyst] = prepare(1)
+xinp  = range(1,8)
+unk   = 0
+order = 2
+topN  = 5
+Iters = 100
+tests = 5
+lol = 0
+for j in range(tests):
     errmean  = 0
     keycount = np.zeros(len(key))
+    dball = initdball()
     for i in range(Iters):
         [dbtrain, dbtest] = randsplit(db)
-        [F, R] = auto(dbtrain, dbtest, xinp, unk)
+        [F, R] = auto(dbtrain, dbtest, xinp, unk, order)
         dberr  = error(dbtest, F, R)
         dbtop  = topcombo(dberr, topN)
         errmean  = errmean + np.mean(dbtop['err'])
         keycount = keycount + counthits(dbtop)
+        [dball, lol] = bestcombo(dbtop['fts'][0], dbtop['err'][0], dball, lol)
     errmean  = errmean/Iters
     keycount = keycount/(topN*Iters)
-
-#     print_results(Iters, errmean, keycount)
+    dbmax = findball(dball)
+    print_results(order, Iters, errmean, keycount)
+    print_max(order, Iters, dbmax)
