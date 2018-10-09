@@ -1,30 +1,40 @@
 #!/usr/bin/python
 import numpy as np
 
+def flong(features):
+    from prepare import keylong
+    featureslong = []
+    for feat in features:
+        for tooth in keylong:
+            if feat[0:2] == tooth[0:2]:
+                featureslong.append(tooth)
+    return featureslong
+
 def buildX(db, features, order):
     # extracts features into matrix for 1st or 2nd order poly regress
-    rows = len(db[features[0]])
-    X = list(np.ones(rows))
+    featlong = flong(features)
+    rows = len(db[featlong[0]])
+    X = list(np.ones(rows))    
     # first order polynomial
     if order == 1:
-        cols = 1 + len(features)
-        for feat in features:
+        cols = 1 + len(featlong)
+        for feat in featlong:
             X = X + db[feat]
     # second order polynomial
     if order == 2:
-        if len(features) > 1:
-            mixlen = np.math.factorial(len(features)) / (2*np.math.factorial(len(features) - 2))
+        if len(featlong) > 1:
+            mixlen = np.math.factorial(len(featlong)) / (2*np.math.factorial(len(featlong) - 2))
         else:
             mixlen = 0
-        cols = 1 + 2*len(features) + mixlen
-        for feat in features:
+        cols = 1 + 2*len(featlong) + mixlen
+        for feat in featlong:
             X = X + db[feat] + [a*b for a,b in zip(db[feat], db[feat])]
         i = 0
         j = 1
         for m in range(mixlen):
-            X = X + [a*b for a,b in zip(db[features[i]],db[features[j]])]
+            X = X + [a*b for a,b in zip(db[featlong[i]],db[featlong[j]])]
             j = j + 1
-            if j == len(features):
+            if j == len(featlong):
                 i = i + 1
                 j = i + 1
     # convert types and reshape

@@ -89,7 +89,7 @@ def error(dbtest, F, R):
     db['err'] = []
     for fidx in range(lenf):
         db['fts'].append(F[fidx])
-        E = np.abs(R[fidx] - Rtrue)/Rtrue
+        E = np.abs((R[fidx] - Rtrue)/Rtrue)
         Emean = np.mean(E)
         Emin  = np.min(E)
         Emax  = np.max(E)
