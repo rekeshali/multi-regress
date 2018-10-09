@@ -25,7 +25,8 @@ def numvals(db, tooth):
     return numvals
 
 # creating new key that sees discrete values 
-from explore import db
+from explore import explore
+[db, bk] = explore()
 disckeys = ['cylinders', 'model year', 'origin']
 keylong = []
 for tooth in key:
@@ -65,16 +66,18 @@ def znorm(db, dbst, key, discnorm):
         for tooth in key[:-1]:
             for i in range(len(db[key[0]])):
                 db[tooth][i] = (db[tooth][i] - dbst[tooth]['mean'][0])/dbst[tooth]['std'][0]
+#                 db[tooth][i] = db[tooth][i]
     else:
         for tooth in key[:-1]:
             if tooth in keyshort:
                 for i in range(len(db[key[0]])):
                     db[tooth][i] = (db[tooth][i] - dbst[tooth]['mean'][0])/dbst[tooth]['std'][0]
+#                     db[tooth][i] = db[tooth][i]
     return db
 
-def prepare():
+def prepare(db, bad_entry):
 # imputate databse and do some stats
-    from explore import db, bad_entry
+#     from explore import db, bad_entry
     lbad = {}
     samples = len(db['mpg'])
     # relocating all bad entries to end
@@ -85,21 +88,6 @@ def prepare():
               db[tooth].pop(badidx)
         lbad[badkey] = len(bad_entry[badkey]) # for list navigation
 
-#     # create dict that holds statistics of data
-#     dbst = {}
-#     keyst = ['mean', 'std', 'min', 'max', 'quartiles', 'numvals']
-#     for tooth in key[:-1]:
-#         dbst[tooth] = {}
-#         for tooth1 in keyst:
-#             dbst[tooth][tooth1] = []
-# 
-#     # populate dict with stats
-#     for tooth in key[:-1]:
-#         dbst[tooth]['numvals'] = numvals(db, tooth)
-#         for tooth1 in keyst[:-1]:
-#             command = 'val = ' + tooth1 + '( db, "' + tooth + '", ' + str(dbst[tooth]['numvals']) + ')'
-#             exec(command)
-#             dbst[tooth][tooth1].append(val)
     # do stats to get means
     dbst = stats(db, key)
 
@@ -123,21 +111,6 @@ def prepare():
                             dbdisc[tooth].append(1)
                         else:
                             dbdisc[tooth].append(0)
-
-#     [dbst, keyst] = stats(dbdisc, keylong)
-
-    # normalizing
-#     if norm == 1:
-#         for tooth in key[:-1]:
-#             if tooth not in disckeys:
-#                 for i in range(samples):
-#                     dbdisc[tooth][i] = (dbdisc[tooth][i] - dbst[tooth]['mean'][0])/dbst[tooth]['std'][0]
-#     if norm == 1:
-#         dbdisc = znorm(dbdisc, dbst, keylong)
-#         for tooth in keylong[:-1]:
-#             for i in range(samples):
-#                 dbdisc[tooth][i] = (dbdisc[tooth][i] - dbst[tooth]['mean'][0])/dbst[tooth]['std'][0]
-
     return dbdisc
 
 

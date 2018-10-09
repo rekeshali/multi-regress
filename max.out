@@ -1,24 +1,49 @@
-order iters  norm count  errmean feature combination
-    1   100    no     9   9.8334 cylinders, weight, model year, origin
-    1   100    no     1  10.8033 cylinders, model year, origin
-    1   100    no     2   9.5753 cylinders, horsepower, weight, acceleration, model year
-    1   100    no    21   9.6067 cylinders, displacement, horsepower, weight, model year, origin
-    1   100    no     5  10.2242 cylinders, displacement, weight, acceleration, model year, origin
-    1   100    no     5  10.3279 cylinders, displacement, weight, acceleration, model year, origin
-    1   100   tog     3  77.4410 cylinders, displacement, horsepower, acceleration, model year, origin
-    1   100   tog     9  78.5844 horsepower, acceleration, model year
-    1   100   tog     1  65.9399 cylinders, model year, origin
-    1   100   tog     7  89.4501 cylinders, displacement, horsepower, weight, model year, origin
-    1   100   tog     1  58.7386 cylinders, weight, model year
-    1   100  dtog     2  57.6521 cylinders, displacement, horsepower, weight, model year
-    1   100  dtog     8  72.0225 cylinders, horsepower, weight, model year, origin
-    1   100  dtog     4  84.5092 cylinders, horsepower, weight, model year, origin
-    1   100  dtog     1  74.7989 horsepower, weight, acceleration, origin
-    1   100  dtog    13  83.5022 displacement, horsepower, weight, acceleration, model year, origin
-    2   100    no    13   8.7531 weight, model year
-    2   100    no    14   8.2389 displacement, weight, model year
-    2   100    no     5   8.4184 cylinders, displacement, weight, model year
-    2   100    no     6   8.6304 weight, acceleration, model year
-    2   100    no     2   7.7958 horsepower, weight, acceleration, model year
-    1    10    no     2  10.3271 cylinders, displacement, horsepower, weight, acceleration, model year, origin
-    1    10   tog     1 130.4094 cylinders, displacement, horsepower, model year, origin
+order iters  topN  norm count  errmean feature combination
+    1   100     5    no    15   9.8126 cylinders, horsepower, weight, model year, origin
+    1   100     5    no    10   9.5786 cylinders, horsepower, weight, acceleration, model year, origin
+    1   100     5    no     9  10.2974 cylinders, weight, model year, origin
+    1   100     5    no    15   9.7048 cylinders, horsepower, weight, model year, origin
+    1   100     5    no     8  10.2344 cylinders, horsepower, weight, acceleration, model year, origin
+    1   100     5   tog    23   9.9681 cylinders, displacement, horsepower, weight, model year, origin
+    1   100     5   tog     4   9.9655 cylinders, displacement, horsepower, acceleration, model year
+    1   100     5   tog     5  10.2476 cylinders, weight, model year, origin
+    1   100     5   tog    10  10.0341 cylinders, weight, model year
+    1   100     5   tog     7  10.0176 cylinders, displacement, horsepower, weight, acceleration, model year, origin
+    2   100     5    no    17   8.7038 cylinders, horsepower, weight, acceleration, model year, origin
+    2   100     5    no     9   8.9596 weight, acceleration, model year, origin
+    2   100     5   tog     1   9.4376 cylinders, displacement, model year
+    2   100     5   tog    12   8.4577 cylinders, weight, acceleration, model year, origin
+    1   100     5    no     4  10.1074 cylinders, displacement, weight, model year, origin
+    1   100     5    no     7  10.2447 cylinders, displacement, horsepower, weight, acceleration, model year, origin
+    1   100     5    no    19   9.7983 cylinders, displacement, horsepower, weight, model year, origin
+    1   100     5    no    11  10.1196 cylinders, displacement, weight, model year, origin
+    1   100     5    no     2  10.2021 cylinders, horsepower, acceleration, model year
+    1   100     5    no     1   8.1171 cylinders, displacement, horsepower, acceleration, model year
+    1   100     5    no     1  10.4819 cylinders, displacement, acceleration, model year, origin
+    1   100     5    no    21  10.2075 cylinders, displacement, horsepower, weight, model year, origin
+    1   100     5    no    17   9.9270 cylinders, displacement, horsepower, weight, model year, origin
+    1   100     5    no     2   9.7481 cylinders, horsepower, weight, model year
+    1   100     5    no     8   9.9873 cylinders, displacement, weight, model year, origin
+    1   100     5   tog     8  10.1686 cylinders, displacement, weight, model year, origin
+    1   100     5   tog    10  10.1956 cylinders, displacement, horsepower, weight, acceleration, model year, origin
+    1   100     5   tog     9  10.1417 cylinders, displacement, weight, model year, origin
+    1   100     5   tog    23  10.0253 cylinders, displacement, horsepower, weight, model year, origin
+    1   100     5   tog     2   9.8843 cylinders, weight, acceleration, model year
+    1   100     5   tog    18 845.2990 cylinders, horsepower, weight, model year, origin
+    1   100     5   tog    35 893.7108 cylinders, displacement, horsepower, weight, model year, origin
+    1   100     5   tog    35 898.0388 cylinders, displacement, horsepower, weight, model year, origin
+    1   100     5   tog     7 873.9626 cylinders, displacement, horsepower, weight, acceleration, model year, origin
+    1   100     5   tog    18 938.9772 cylinders, horsepower, weight, model year, origin
+    1   100     5   tog    36 918.9391 cylinders, displacement, horsepower, weight, model year, origin
+    1   100     5   tog    18 789.3616 cylinders, horsepower, weight, model year, origin
+    1   100     5   tog    14 845.4166 cylinders, horsepower, weight, model year, origin
+    1   100     5   tog     4 861.4208 horsepower, weight, model year, origin
+    1   100     5    no     5 861.5856 cylinders, displacement, weight, model year, origin
+    1   100     5    no     3 1124.5692 displacement, horsepower, weight, acceleration, model year, origin
+    1   100     5    no    21 855.7534 cylinders, horsepower, weight, model year, origin
+    1   100     5    no    17 812.7802 cylinders, horsepower, weight, model year, origin
+    1   100     5    no     7 842.2816 displacement, horsepower, weight, acceleration, model year, origin
+    2   100     5    no     5 714.9775 displacement, weight, acceleration, model year, origin
+    2   100     5    no     3 708.9502 displacement, horsepower, model year
+    2   100     5   tog     1 615.1744 displacement, weight, model year, origin
+    2   100     5   tog     2 604.2922 displacement, weight, model year

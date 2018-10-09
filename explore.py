@@ -8,44 +8,61 @@ def is_num(string): # returns true if number, false otherwise
     except ValueError:
         return False# open, get, close data files
 
-# begin data exploration
-datafile = open("data/auto-mpg.data", "r") # opens for reading
+# getting keys
 namefile = open("data/auto-mpg.names", "r")
 
-if datafile.mode == 'r' and namefile.mode == "r":
-    book = datafile.read() # reads all as on string
+if namefile.mode == "r":
     card = namefile.read()
 
-datafile.close() # close for good practice
 namefile.close()
 
 # get keys for dict
-i = 0
-db = {} # initiate dict
 key = [] # initiate list
 card = card.split('\n') # split long string by new line
 for line in card:
     key.append(line.split(':')[0].split(' ',5)[-1]) # get dict keys
-    db[key[i]] = [] # initiate key:value pairs in dict
-    i = i + 1
 
-# add values to dict
-bad_entry = {}
-nameidx = key.index('car name')
-book = book.split('\n')
-for line in book:
-    for tooth in key:
-        if tooth == key[nameidx]: # name is separated by \t
-            db[tooth].append(line.split('\t')[1].split('"')[1])
-        else:
-            value = line.split('\t')[0].split()[key.index(tooth)] # get value according to key index
-            if is_num(value): # paste if a number
-                db[tooth].append(float(value))
-            else: # non-numbers mean bad data, so replace for now and save location
-                if tooth not in bad_entry.keys():
-                    bad_entry[tooth] = []
-                db[tooth].append(-1)
-                bad_entry[tooth].insert(0, len(db[tooth]) - 1)
+# begin data exploration
+def explore():
+    datafile = open("data/auto-mpg.data", "r") # opens for reading
+    namefile = open("data/auto-mpg.names", "r")
+
+    if datafile.mode == 'r' and namefile.mode == "r":
+        book = datafile.read() # reads all as on string
+        card = namefile.read()
+
+    datafile.close() # close for good practice
+    namefile.close()
+
+    # get keys for dict
+    i = 0
+    db = {} # initiate dict
+    key = [] # initiate list
+    card = card.split('\n') # split long string by new line
+    for line in card:
+        key.append(line.split(':')[0].split(' ',5)[-1]) # get dict keys
+        db[key[i]] = [] # initiate key:value pairs in dict
+        i = i + 1
+
+    # add values to dict
+    bad_entry = {}
+    nameidx = key.index('car name')
+    book = book.split('\n')
+    for line in book:
+        for tooth in key:
+            if tooth == key[nameidx]: # name is separated by \t
+                db[tooth].append(line.split('\t')[1].split('"')[1])
+            else:
+                value = line.split('\t')[0].split()[key.index(tooth)] # get value according to key index
+                if is_num(value): # paste if a number
+                    db[tooth].append(float(value))
+                else: # non-numbers mean bad data, so replace for now and save location
+                    if tooth not in bad_entry.keys():
+                        bad_entry[tooth] = []
+                    db[tooth].append(-1)
+                    bad_entry[tooth].insert(0, len(db[tooth]) - 1)
+    return db, bad_entry
+
 
 # # relocating all bad entries to end
 # for badidx in bad_entry:

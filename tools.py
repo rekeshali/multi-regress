@@ -31,7 +31,7 @@ def bin2flag(binary, length):
         binint.append(int(fidxstr[lidx]))
     return binint
 
-def autotrain(db, xinp, unkidx, order):
+def autotrain(db, xinp, unkidx, order, norm):
     # models polynomial of order for all possible combinations of xinp in db on unkidx in db
     from explore import key
     from implement import train
@@ -49,11 +49,11 @@ def autotrain(db, xinp, unkidx, order):
             if flagidx[i] == 1:
                 xidx.append(i)
         featcombo = getkey(features, xidx)
-        W.append(train(db, featcombo, unkey, order))
+        W.append(train(db, featcombo, unkey, order, norm))
         F.append(featcombo)
     return W, F
 
-def autotest(db, xinp, order, W):
+def autotest(db, xinp, order, norm, W):
     # tests polynomial of order for all possible combinations of xinp in db on unkidx in db
     from explore import key
     from implement import solve
@@ -69,16 +69,16 @@ def autotest(db, xinp, order, W):
             if flagidx[i] == 1:
                 xidx.append(i)
         featcombo = getkey(features, xidx)
-        R.append(solve(db, featcombo, order, W[fidx]))
+        R.append(solve(db, featcombo, order, norm, W[fidx]))
     return R
 
-def auto(dbtrain, dbtest, xidx, ridx, order):
+def auto(dbtrain, dbtest, xidx, ridx, order, norm):
     # automatically trains and tests all possible combinations of data
-    [W, F] = autotrain(dbtrain, xidx, ridx, order)
-    R =  autotest(dbtest, xidx, order, W)
+    [W, F] = autotrain(dbtrain, xidx, ridx, order, norm)
+    R =  autotest(dbtest, xidx, order, norm, W)
     return F, R
 
-def error(dbtest, F, R):
+def error(dbtest, F, R, norm, mpgmean, mpgstd):
     # builds a database that holds all combos vs error stats
     from implement import buildR
     from explore import key
@@ -89,7 +89,15 @@ def error(dbtest, F, R):
     db['err'] = []
     for fidx in range(lenf):
         db['fts'].append(F[fidx])
-        E = np.abs((R[fidx] - Rtrue)/Rtrue)
+        E = []
+        if norm == 'no':
+#             E = np.abs((R[fidx] - Rtrue)/Rtrue)
+            for i in range(len(Rtrue)):
+                E.append(pow(R[fidx][i] - Rtrue[i], 2))
+        else:
+#             E = np.abs(mpgstd*(R[fidx] - Rtrue)/(Rtrue*mpgstd + mpgmean))
+             for i in range(len(Rtrue)):
+                E.append(pow(mpgstd*(R[fidx][i] - Rtrue[i]), 2))
         Emean = np.mean(E)
         Emin  = np.min(E)
         Emax  = np.max(E)
@@ -129,7 +137,7 @@ def initdball():
     dball['err'] = []
     return dball
 
-def bestcombo(topfeats, toperr, dball, lol):
+def bestcombo(topfeats, toperr, dball):
     # find #1 combination of features across all iterations
     from explore import key
     keybool = list(np.zeros(len(key)))
@@ -155,10 +163,7 @@ def bestcombo(topfeats, toperr, dball, lol):
                 dball['err'].append(toperr)
 #                 print('neq')
                 break
-#     print('lol: ' + str(lol))
-    lol += 1
-#     print('lol',lol)
-    return dball, lol
+    return dball
 
 def findball(dball):
     from explore import key

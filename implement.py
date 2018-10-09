@@ -10,11 +10,11 @@ def flong(features):
                 featureslong.append(tooth)
     return featureslong
 
-def buildX(db, features, order):
+def buildX(db, features, order, norm):
     # extracts features into matrix for 1st or 2nd order poly regress
     featlong = flong(features)
     rows = len(db[featlong[0]])
-    X = list(np.ones(rows))    
+    X = list(np.ones(rows)) 
     # first order polynomial
     if order == 1:
         cols = 1 + len(featlong)
@@ -38,6 +38,9 @@ def buildX(db, features, order):
                 i = i + 1
                 j = i + 1
     # convert types and reshape
+    if norm != 'no':
+        cols = cols - 1
+        X = X[rows:]
     X = np.matrix(X)
     X.resize(cols,rows)
     X = X.T
@@ -52,16 +55,19 @@ def buildR(db, ukey):
     return R
 
 # trains an n polynomial model with any feature combination 
-def train(dbtrain, features, unkey, order):
-    Xtrain = buildX(dbtrain, features, order)
+def train(dbtrain, features, unkey, order, norm):
+    Xtrain = buildX(dbtrain, features, order, norm)
     Rtrain = buildR(dbtrain, unkey)
-    W = Xtrain.I*Rtrain
+#     W2 = Xtrain.I*Rtrain
+    W = np.linalg.pinv(Xtrain.T*Xtrain, rcond=1.0e-15)*Xtrain.T*Rtrain
+#     print(W2-W)
+#     print(W)
     return W
 
 # solves test array using weights from training
-def solve(dbtest, features, order, W):
+def solve(dbtest, features, order, norm, W):
     # build arrays from dict using only relevant keys
-    Xtest  = buildX(dbtest, features, order)
+    Xtest  = buildX(dbtest, features, order, norm)
     # solve linear system
     R = Xtest*W
     return R
