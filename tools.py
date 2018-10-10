@@ -91,13 +91,13 @@ def error(dbtest, F, R, norm, mpgmean, mpgstd):
         db['fts'].append(F[fidx])
         E = []
         if norm == 'no':
-#             E = np.abs((R[fidx] - Rtrue)/Rtrue)
-            for i in range(len(Rtrue)):
-                E.append(pow(R[fidx][i] - Rtrue[i], 2))
+            E = np.abs((R[fidx] - Rtrue)/Rtrue)
+#             for i in range(len(Rtrue)):
+#                 E.append(pow(R[fidx][i] - Rtrue[i], 2))
         else:
-#             E = np.abs(mpgstd*(R[fidx] - Rtrue)/(Rtrue*mpgstd + mpgmean))
-             for i in range(len(Rtrue)):
-                E.append(pow(mpgstd*(R[fidx][i] - Rtrue[i]), 2))
+            E = np.abs(mpgstd*(R[fidx] - Rtrue)/(Rtrue*mpgstd + mpgmean))
+#              for i in range(len(Rtrue)):
+#                 E.append(pow(mpgstd*(R[fidx][i] - Rtrue[i]), 2))
         Emean = np.mean(E)
         Emin  = np.min(E)
         Emax  = np.max(E)

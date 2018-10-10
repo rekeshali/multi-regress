@@ -7,7 +7,7 @@ from prepare import keylong, prepare, stats, randsplitnorm, seestats
 from tools import auto, error, topcombo, counthits, initdball, bestcombo, findball
 from output import print_results, print_max
 
-norms = ['no', 'tog', 'dtog', 'sep', 'dsep']
+norms = ['no', 'tog', 'dtog', 'sep', 'dsep'] # normalization types, dsep breaks
 norm  = norms[1]
 [dbraw, bad_entry] = explore()
 db = prepare(dbraw, bad_entry)
@@ -16,12 +16,13 @@ mpgmean = list(dbstats['mpg']['mean'])[0]
 mpgstd = list(dbstats['mpg']['std'])[0]
 
 # print(db)
-xinp  = range(1,8)
-unk   = 0
-order = 2
-topN  = 5
-Iters = 100
-tests = 2
+# xinp  = range(1,8)
+xinp = [4, 6] # which features to be run
+unk   = 0 # index of the unknown
+order = 2 # polynomial order (1 or 2)
+topN  = 1 # top combinations cutoff, ie top 5, top 10 
+Iters = 1000 # iterations
+tests = 10 # times to run all iters and print
 
 for j in range(tests):
 #     print(db)

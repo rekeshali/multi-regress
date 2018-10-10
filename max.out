@@ -47,3 +47,36 @@ order iters  topN  norm count  errmean feature combination
     2   100     5    no     3 708.9502 displacement, horsepower, model year
     2   100     5   tog     1 615.1744 displacement, weight, model year, origin
     2   100     5   tog     2 604.2922 displacement, weight, model year
+    1  1000     5   tog   362 930.1454 cylinders, displacement, horsepower, weight, model year, origin
+    1  1000     5   tog   170 837.2522 cylinders, horsepower, weight, model year, origin
+    1  1000     5   tog   349 919.2183 cylinders, displacement, horsepower, weight, model year, origin
+    1  1000     5   tog   355 916.6715 cylinders, displacement, horsepower, weight, model year, origin
+    1  1000     5   tog    64 878.0859 cylinders, displacement, horsepower, weight, acceleration, model year, origin
+    1  1000     5   tog   349 923.3852 cylinders, displacement, horsepower, weight, model year, origin
+    1  1000     5   tog   194 853.8584 cylinders, horsepower, weight, model year, origin
+    1  1000     5   tog   360 912.1695 cylinders, displacement, horsepower, weight, model year, origin
+    1  1000     5   tog   340 927.9399 cylinders, displacement, horsepower, weight, model year, origin
+    1  1000     5   tog   152 853.6659 cylinders, horsepower, weight, model year, origin
+    1  1000     5    no   351 911.8576 cylinders, displacement, horsepower, weight, model year, origin
+    1  1000     5    no   165 865.4215 cylinders, horsepower, weight, model year, origin
+    1  1000     5    no    72 931.2552 cylinders, displacement, horsepower, weight, acceleration, model year, origin
+    2  1000     1   tog  1000 837.3563 weight, model year
+    2  1000     1   tog  1000 844.3075 weight, model year
+    2  1000     1   tog  1000 826.1289 weight, model year
+    2  1000     1   tog  1000 838.1226 weight, model year
+    2  1000     1   tog  1000 828.0559 weight, model year
+    2  1000     1   tog  1000 835.5648 weight, model year
+    2  1000     1   tog  1000 835.3402 weight, model year
+    2  1000     1   tog  1000 835.0024 weight, model year
+    2  1000     1   tog  1000 830.4368 weight, model year
+    2  1000     1   tog  1000 830.9532 weight, model year
+    2  1000     1   tog  1000   9.0226 weight, model year
+    2  1000     1   tog  1000   8.9637 weight, model year
+    2  1000     1   tog  1000   9.0125 weight, model year
+    2  1000     1   tog  1000   8.9646 weight, model year
+    2  1000     1   tog  1000   9.0145 weight, model year
+    2  1000     1   tog  1000   8.9496 weight, model year
+    2  1000     1   tog  1000   8.9849 weight, model year
+    2  1000     1   tog  1000   8.9971 weight, model year
+    2  1000     1   tog  1000   9.0212 weight, model year
+    2  1000     1   tog  1000   8.9401 weight, model year
